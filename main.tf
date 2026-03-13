@@ -159,7 +159,7 @@ resource "aws_instance" "ansible_instance" {
   ami                         = "ami-03446a3af42c5e74e" //ubuntu
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.subnet1.id
-  key_name                    = aws_key_pair.key_pair.key_name
+  key_name                    = aws_key_pair.key_pair.id
   vpc_security_group_ids      = [aws_security_group.ansible_sg.id]
   associate_public_ip_address = true
   user_data                   = file("./user-data.sh")
@@ -173,7 +173,7 @@ resource "aws_instance" "ubuntu" {
   ami                         = "ami-03446a3af42c5e74e" //ubuntu
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.subnet1.id
-  key_name                    = aws_key_pair.key_pair.key_name
+  key_name                    = aws_key_pair.key_pair.id
   vpc_security_group_ids      = [aws_security_group.managenodes_sg.id]
   associate_public_ip_address = true
   tags = {
@@ -183,10 +183,10 @@ resource "aws_instance" "ubuntu" {
 
 // Creating an managed node 2 instance
 resource "aws_instance" "redhat" {
-  ami                         = "ami-0da543a6b4536a9e2" //RedHat
+  ami                         = "ami-0da543a6b4536a9e2" //redHat
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.subnet1.id
-  key_name                    = aws_key_pair.key_pair.key_name
+  key_name                    = aws_key_pair.key_pair.id
   vpc_security_group_ids      = [aws_security_group.managenodes_sg.id]
   associate_public_ip_address = true
   tags = {
