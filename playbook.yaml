@@ -1,0 +1,28 @@
+---
+- name: Install and start Apache
+  hosts: all
+  become: true #run task with root previleges
+
+  tasks:
+    - name: Update Ubuntu packages
+      when: ansible_os_family == 'Debian' #only execute this task on Debian base systems
+      apt:
+        update_cache: yes #update the package cache
+        upgrade: dist # upgrade all packages to the latest version
+
+    - name: Install Apache on Red Hat
+      when: ansible_os_family == 'RedHat' #only execute this task on redhat base systems
+      package:
+        name: httpd #package name for Apache on redhat
+        state: present #ensure the package is installed
+
+    - name: Install Apache on Ubuntu
+      when: ansible_os_family == 'Debian' #only execute this task on debian base systems
+      package:
+        name: apache2 #package name for Apache on ubuntu 
+        state: present #ensure the package is installed
+
+    - name: Start Apache service
+      service:
+        name: "{{ 'httpd' if ansible_os_family =='RedHat' else 'apache2' }}" #service name for apache
+        state: started #ensure the service is runing
